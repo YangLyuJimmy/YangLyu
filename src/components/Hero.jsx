@@ -1,4 +1,5 @@
 import React from "react";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 function Hero() {
   return (
@@ -20,6 +21,20 @@ function Hero() {
             I value clarity, empathy, and integrity above all else. These
             principles guide my approach to product building and life in general.
           </p>
+
+          <div className="pt-4">
+            <div className="w-12 h-0.5 bg-white/30 mb-6"></div>
+            <div className="flex space-x-6">
+              <a href="https://linkedin.com/in/yang-lyu-171237166/" target="_blank" rel="noopener noreferrer" className="flex items-center text-white/70 hover:text-white transition-colors">
+                <FaLinkedin className="w-6 h-6 mr-2" />
+                LinkedIn
+              </a>
+              <a href="https://github.com/YangLyuJimmy" target="_blank" rel="noopener noreferrer" className="flex items-center text-white/70 hover:text-white transition-colors">
+                <FaGithub className="w-6 h-6 mr-2" />
+                Github
+              </a>
+            </div>
+          </div>
         </div>
 
         <div className="mt-32 grid grid-cols-2 gap-8">
