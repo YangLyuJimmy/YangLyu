@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf docs && mv build docs",
+    "build": "react-scripts build",
+    "deploy": "npm run build && cp -r build/* . && git add . && git commit -m 'Deploy React App' && git push origin main",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
