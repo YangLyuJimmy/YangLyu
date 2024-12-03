@@ -36,6 +36,16 @@ const transporter = nodemailer.createTransport({
 // });
 
 exports.sendEmail = functions.https.onRequest((req, res) => {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', 'https://yanglyujimmy.github.io'); // Allow your frontend origin
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS'); // Allow POST and OPTIONS methods
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
+
+  // Handle preflight OPTIONS request
+  if (req.method === 'OPTIONS') {
+    return res.status(204).send(''); // Respond with no content for OPTIONS requests
+  }
+
   // Ensure the request method is POST
   if (req.method !== 'POST') {
     return res.status(405).send('Method Not Allowed');
@@ -63,6 +73,4 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
     console.log('Email sent:', info.response);
     return res.status(200).send('Email sent successfully');
   });
-
-  res.setHeader('Access-Control-Allow-Origin', 'https://yanglyujimmy.github.io');
 });
