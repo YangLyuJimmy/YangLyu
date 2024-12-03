@@ -15,7 +15,7 @@ function Contact() {
               const message = formData.get('message');
               
               try {
-                const response = await fetch('https://your-region-your-project.cloudfunctions.net/sendEmail', {
+                const response = await fetch('https://sendemail-5aututhkq-uc.a.run.app', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
