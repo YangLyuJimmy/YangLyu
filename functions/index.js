@@ -7,17 +7,23 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
+// Load environment variables from .env.local
+require('dotenv').config();
+
 const {onRequest} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
+
+// Access the password from the .env.local file
+const emailPassword = process.env.EMAIL_PASSWORD;
 
 // Configure your email transport using nodemailer
 const transporter = nodemailer.createTransport({
   service: 'Gmail', // or another email service
   auth: {
     user: 'bigsmartmovie@gmail.com', // your email
-    pass: 'uscedufpxdoinbN1!' // your email password or app password
+    pass: emailPassword // Use the environment variable here
   }
 });
 
@@ -30,7 +36,17 @@ const transporter = nodemailer.createTransport({
 // });
 
 exports.sendEmail = functions.https.onRequest((req, res) => {
+  // Ensure the request method is POST
+  if (req.method !== 'POST') {
+    return res.status(405).send('Method Not Allowed');
+  }
+
   const { name, email, message } = req.body;
+
+  // Validate input
+  if (!name || !email || !message) {
+    return res.status(400).send('Missing required fields');
+  }
 
   const mailOptions = {
     from: 'bigsmartmovie@gmail.com',
@@ -47,4 +63,6 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
     console.log('Email sent:', info.response);
     return res.status(200).send('Email sent successfully');
   });
+
+  res.setHeader('Access-Control-Allow-Origin', 'https://yanglyujimmy.github.io');
 });
